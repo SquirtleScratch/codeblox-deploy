@@ -3,24 +3,53 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run docker-dev:hot",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "npm run test:jest:frontend && npm run test:jest:backend && npm run test:chai && npm run test:playwright && npm run test:cucumberjs",
+    "cleanup:npm": "npm cache clean --force",
+    "cleanup:full": "find . -type d \\( -name 'node_modules' -o -name '.next' -o -name 'out' -o -name 'dist' -o -name 'test-results' \\) -exec rm -rf {} + && echo 'Full cleanup completed!'",
+    "cleanup:build": "find . -type d \\( -name '.next' -o -name 'out' -o -name 'dist' -o -name 'test-results' \\) -exec rm -rf {} + && echo 'Build cleanup completed!'",
+    "cleanup": "npm run cleanup:full && npm run cleanup:npm",
+    "dev:hot": "NODE_ENV=development next dev",
+    "docker-dev:hot": "docker compose -f .docker/docker-compose-dev-hot.yml up",
+    "docker-test": "docker compose -f .docker/docker-compose-test.yml up",
+    "docker-build": "docker build -t adamtestbed/codeblox-dev -f .docker/Dockerfile-dev . && docker build -t adamtestbed/codeblox-postgres -f .docker/Dockerfile-postgres .",
+    "test:jest:frontend": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.frontend.config.js",
+    "test:jest:backend": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.backend.config.js",
+    "test:chai": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.chai.config.js",
+    "test:playwright": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/playwright test --config=./.configs/for_tests/jest.playwright.config.js",
+    "test:cucumberjs": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/cucumber-js --require __tests__/cucumberjs/step_definitions __tests__/cucumberjs/features"
   },
   "dependencies": {
+    "next": "^14.2.7",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.6"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@cucumber/cucumber": "^10.9.0",
+    "@playwright/test": "^1.46.1",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/node": "^22.5.1",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "babel-jest": "^29.7.0",
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.6",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-playwright-preset": "^4.0.0",
+    "pg": "^8.12.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.6"
+    "typescript": "^5"
   }
 }

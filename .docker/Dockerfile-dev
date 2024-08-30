@@ -1,0 +1,31 @@
+# path:  .docker/Dockerfile-dev
+
+FROM node:20
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Install PostgreSQL client tools
+RUN apt-get update && apt-get install -y postgresql-client
+
+# Copy package.json and package-lock.json
+COPY ../package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Install Playwright and download browsers
+RUN npx playwright install --with-deps
+
+# Copy the rest of the application code
+COPY ../. .
+
+# Set environment variable for testing or development based on build argument
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
+
+# Expose port 3000 to the host
+EXPOSE 3000
+
+# Start the Codeblox Next.js application with hot reloading
+CMD ["npm", "run", "dev:hot"]
