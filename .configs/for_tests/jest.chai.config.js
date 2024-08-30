@@ -1,5 +1,5 @@
 /**
- * path:  .configs/jest.backend.config.js
+ * path:  .configs/jest.chai.config.js
  */
 
 module.exports = {
@@ -15,6 +15,6 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
   transformIgnorePatterns: ['/node_modules/(?!chai)/'],
-  // setupFilesAfterEnv: ['./.configs/jest.backend.setup.js'], // Remove or correct this if not needed
+  setupFilesAfterEnv: ['./.configs/for_tests/chai.setup.js'],
   testMatch: ['<rootDir>/__tests__/chai/**/*.[jt]s?(x)', '<rootDir>/__tests__/chai/**/?(*.)+(spec|test).[tj]s?(x)'],
 };

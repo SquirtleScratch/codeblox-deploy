@@ -1,0 +1,6 @@
+# path:  .docker/docker-compose-postgres.test.yml
+
+services:
+  postgres-db:
+    env_file:
+      - ../.configs/.env.test

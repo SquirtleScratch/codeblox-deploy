@@ -12,12 +12,18 @@
     "cleanup:full": "find . -type d \\( -name 'node_modules' -o -name '.next' -o -name 'out' -o -name 'dist' -o -name 'test-results' \\) -exec rm -rf {} + && echo 'Full cleanup completed!'",
     "cleanup:build": "find . -type d \\( -name '.next' -o -name 'out' -o -name 'dist' -o -name 'test-results' \\) -exec rm -rf {} + && echo 'Build cleanup completed!'",
     "cleanup": "npm run cleanup:full && npm run cleanup:npm",
+
     "dev:hot": "NODE_ENV=development next dev",
     "dev:test": "npm run test:jest:frontend && npm run test:jest:backend && npm run test:chai && npm run test:playwright && npm run test:cucumberjs",
-    "docker-dev:hot": "docker compose -f .docker/docker-compose-dev-hot.yml up",
-    "docker-test": "docker compose -f .docker/docker-compose-test.yml up",
-    "docker-build": "docker build -t adamtestbed/codeblox-dev -f .docker/Dockerfile-dev . && docker build -t adamtestbed/codeblox-postgres -f .docker/Dockerfile-postgres . && docker build -t adamtestbed/codeblox-prod -f .docker/Dockerfile . ",
-    "docker-push": "docker push adamtestbed/codeblox-dev && docker push adamtestbed/codeblox-postgres && docker push adamtestbed/codeblox-prod",
+
+    "docker-dev:hot": "docker compose -f .docker/docker-compose-dev-hot.yml -f .docker/docker-compose-postgres.dev.yml up",
+
+    "docker-test": "docker compose -f .docker/docker-compose-test.yml -f .docker/docker-compose-postgres.dev.yml -f .docker/docker-compose-postgres.test.yml up",
+
+    "docker-build": "docker build -t adamtestbed/codeblox-dev -f .docker/Dockerfile-dev . && docker build -t adamtestbed/codeblox-dev-postgres -f .docker/Dockerfile-dev-postgres . && docker build -t adamtestbed/codeblox-prod -f .docker/Dockerfile . ",
+    "docker-push": "docker push adamtestbed/codeblox-dev && docker push adamtestbed/codeblox-dev-postgres && docker push adamtestbed/codeblox-prod",
+    
+    
     "test:jest:frontend": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.frontend.config.js",
     "test:jest:backend": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.backend.config.js",
     "test:chai": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.chai.config.js",
@@ -25,6 +31,7 @@
     "test:cucumberjs": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/cucumber-js --require __tests__/cucumberjs/step_definitions __tests__/cucumberjs/features"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "next": "^14.2.7",
     "react": "^18",
     "react-dom": "^18"
