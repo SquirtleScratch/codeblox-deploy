@@ -20,7 +20,7 @@ services:
       done;
       echo 'Starting tests...';
       PGPASSWORD=${POSTGRES_PASSWORD} psql -h postgres-db-test -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c \"\\\\l\" &&
-      npm run test &&
+      npm run dev:test &&
       echo 'Tests finished.'"
     depends_on:
       - postgres-db-test
