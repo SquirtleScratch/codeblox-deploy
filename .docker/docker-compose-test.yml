@@ -1,6 +1,7 @@
 # path:  .docker/docker-compose-test.yml
 
 services:
+
   test:
     environment:
       - NODE_ENV=test
@@ -9,7 +10,7 @@ services:
     image: ${ORGANIZATION}/codeblox-dev
     container_name: codeblox-nextjs-test
     ports:
-      - "3000:3000"
+      - "3001:3000"
     volumes:
       - ../:/usr/src/app:cached  # Mount the application code for running tests
       - ../.configs/scripts/wait-for-it.sh:/usr/src/.configs/scripts/wait-for-it.sh  # Include the wait-for-it script
@@ -26,8 +27,8 @@ services:
       PGPASSWORD=${POSTGRES_PASSWORD} psql -h ${POSTGRES_HOST_ALIAS} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c \"\\\\l\" &&
       npm run dev:test &&
       echo 'Tests finished.'"
-    # depends_on:
-    #   - postgres-db
+    depends_on:
+      - postgres-db-test
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]  # Optional healthcheck to ensure the web service is up
       interval: 30s

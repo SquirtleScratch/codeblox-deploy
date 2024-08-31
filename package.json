@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "docker compose -f .docker/docker-compose-test.yml up",
+    "test": "npm run docker-test",
 
     "cleanup:npm": "npm cache clean --force",
     "cleanup:full": "find . -type d \\( -name 'node_modules' -o -name '.next' -o -name 'out' -o -name 'dist' -o -name 'test-results' \\) -exec rm -rf {} + && echo 'Full cleanup completed!'",
@@ -16,7 +16,7 @@
     "cleanup": "npm run cleanup:full && npm run cleanup:npm",
     "dev:hot": "NODE_ENV=development next dev",
     "dev:test": "npm run test:jest:frontend && npm run test:jest:backend && npm run test:chai && npm run test:playwright && npm run test:cucumberjs",
-    
+
     "docker-dev:hot": "NODE_ENV=development docker compose -f .docker/docker-compose-dev-hot.yml -f .docker/docker-compose-postgres.base.yml -f .docker/docker-compose-postgres.dev.yml up",
     "docker-pgAdmin": "docker compose -f .docker/docker-compose-postgres-pgadmin4.yml up",
     "docker-test": "NODE_ENV=test docker compose -f .docker/docker-compose-test.yml -f .docker/docker-compose-postgres.test.yml up",
