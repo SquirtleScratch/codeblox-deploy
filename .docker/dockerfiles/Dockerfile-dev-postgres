@@ -4,4 +4,4 @@
 FROM postgres:16.4
 
 # Copy the SQL script from the local directory to the appropriate location in the container
-COPY .docker/codeblox-dev.sql /docker-entrypoint-initdb.d/
+COPY .docker/sql_pg_dump/codeblox-dev.sql /docker-entrypoint-initdb.d/

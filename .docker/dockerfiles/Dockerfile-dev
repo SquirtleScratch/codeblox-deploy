@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 RUN apt-get update && apt-get install -y postgresql-client
 
 # Copy package.json and package-lock.json
-COPY ../package*.json ./
+COPY ../../package*.json ./
 
 # Install dependencies
 RUN npm install
@@ -18,7 +18,7 @@ RUN npm install
 RUN npx playwright install --with-deps
 
 # Copy the rest of the application code
-COPY ../. .
+COPY ../../. .
 
 # Set environment variable for testing or development based on build argument
 ARG NODE_ENV=development

@@ -1,4 +1,4 @@
-# path:  .docker/docker-compose-postgres.test.yml
+# path: .docker/docker-compose-postgres.base.yml
 
 services:
   postgres-db:
@@ -12,18 +12,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  postgres-db-test:
-    environment:
-      - NODE_ENV=test
 
-    env_file:
-      - ../.configs/.env.${NODE_ENV}
-    extends:
-      service: postgres-db
-    networks:
-      test-network:
-        aliases:
-          - ${POSTGRES_HOST_ALIAS}
-
-networks:
-  test-network:
+volumes:
+  test-db-volume:

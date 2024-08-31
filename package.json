@@ -16,11 +16,12 @@
     "dev:hot": "NODE_ENV=development next dev",
     "dev:test": "npm run test:jest:frontend && npm run test:jest:backend && npm run test:chai && npm run test:playwright && npm run test:cucumberjs",
 
-    "docker-dev:hot": "docker compose -f .docker/docker-compose-dev-hot.yml -f .docker/docker-compose-postgres.dev.yml up",
+    "docker-dev:hot": "NODE_ENV=development docker compose -f .docker/docker-compose-dev-hot.yml -f .docker/docker-compose-postgres.base.yml -f .docker/docker-compose-postgres.dev.yml up",
+    "docker-pgAdmin": "docker compose -f .docker/docker-compose-postgres-pgadmin4.yml up",
 
-    "docker-test": "docker compose -f .docker/docker-compose-test.yml -f .docker/docker-compose-postgres.dev.yml -f .docker/docker-compose-postgres.test.yml up",
+    "docker-test": "NODE_ENV=test docker compose -f .docker/docker-compose-test.yml -f .docker/docker-compose-postgres.test.yml up",
 
-    "docker-build": "docker build -t adamtestbed/codeblox-dev -f .docker/Dockerfile-dev . && docker build -t adamtestbed/codeblox-dev-postgres -f .docker/Dockerfile-dev-postgres . && docker build -t adamtestbed/codeblox-prod -f .docker/Dockerfile . ",
+    "docker-build": "docker build -t adamtestbed/codeblox-dev -f .docker/dockerfiles/Dockerfile-dev . && docker build -t adamtestbed/codeblox-dev-postgres -f .docker/dockerfiles/Dockerfile-dev-postgres . && docker build -t adamtestbed/codeblox-prod -f .docker/dockerfiles/Dockerfile . ",
     "docker-push": "docker push adamtestbed/codeblox-dev && docker push adamtestbed/codeblox-dev-postgres && docker push adamtestbed/codeblox-prod",
     
     

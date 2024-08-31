@@ -26,13 +26,19 @@ services:
       PGPASSWORD=${POSTGRES_PASSWORD} psql -h ${POSTGRES_HOST_ALIAS} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c \"\\\\l\" &&
       npm run dev:test &&
       echo 'Tests finished.'"
-    depends_on:
-      - postgres-db
+    # depends_on:
+    #   - postgres-db
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]  # Optional healthcheck to ensure the web service is up
       interval: 30s
       timeout: 10s
       retries: 3
+    networks:
+      - test-network
 
 volumes:
   test-db-volume:
+
+networks:
+  test-network:
+    driver: bridge 
