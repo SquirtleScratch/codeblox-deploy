@@ -18,21 +18,21 @@
     "docker-pgAdmin": "docker compose -f .docker/docker-compose-postgres-pgadmin4.yml up",
     "docker-test": "NODE_ENV=test docker compose -f .docker/docker-compose-test.yml -f .docker/docker-compose-postgres.test.yml up",
 
-    "docker-build-dev": "docker build -t adamtestbed/codeblox-dev -f .docker/dockerfiles/Dockerfile-dev . && docker push adamtestbed/codeblox-dev",
-    "docker-build-dev-postgres": "docker build -t adamtestbed/codeblox-dev-postgres -f .docker/dockerfiles/Dockerfile-dev-postgres . && docker push adamtestbed/codeblox-dev-postgres",
-    "docker-build-prod": "docker build -t adamtestbed/codeblox-prod -f .docker/dockerfiles/Dockerfile . && docker push adamtestbed/codeblox-prod",
+    "docker-build-dev": "docker build -t codebloxes/codeblox-dev -f .docker/dockerfiles/Dockerfile-dev . && docker push codebloxes/codeblox-dev",
+    "docker-build-dev-postgres": "docker build -t codebloxes/codeblox-dev-postgres -f .docker/dockerfiles/Dockerfile-dev-postgres . && docker push codebloxes/codeblox-dev-postgres",
+    "docker-build-prod": "docker build -t codebloxes/codeblox-prod -f .docker/dockerfiles/Dockerfile . && docker push codebloxes/codeblox-prod",
     "docker-build": "concurrently \"npm run docker-build-dev\" \"npm run docker-build-dev-postgres\" \"npm run docker-build-prod\"",
 
     "docker-x-buildx-create": "docker buildx rm codeblox-builder || true && docker buildx create --name codeblox-builder --use",
-    "docker-x-build-prod": "docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-prod:latest -f ./.docker/dockerfiles/Dockerfile --push .",
-    "docker-x-build-dev": "docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-dev:latest -f ./.docker/dockerfiles/Dockerfile-dev --push .",
-    "docker-x-build-dev-postgres": "docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-dev-postgres:latest -f ./.docker/dockerfiles/Dockerfile-dev-postgres --push .",
+    "docker-x-build-prod": "docker buildx build --platform linux/amd64,linux/arm64 -t codebloxes/codeblox-prod:latest -f ./.docker/dockerfiles/Dockerfile --push .",
+    "docker-x-build-dev": "docker buildx build --platform linux/amd64,linux/arm64 -t codebloxes/codeblox-dev:latest -f ./.docker/dockerfiles/Dockerfile-dev --push .",
+    "docker-x-build-dev-postgres": "docker buildx build --platform linux/amd64,linux/arm64 -t codebloxes/codeblox-dev-postgres:latest -f ./.docker/dockerfiles/Dockerfile-dev-postgres --push .",
 
     "docker-build-all": "npm run docker-x-buildx-create && concurrently \"npm run docker-x-build-prod\" \"npm run docker-x-build-dev\" \"npm run docker-x-build-dev-postgres\"",
 
-    "docker-x-build-cb-prod": "npm run docker-x-buildx-create && docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-prod:latest -f ./.docker/dockerfiles/Dockerfile --push .",
-    "docker-x-build-cb-dev": "npm run docker-x-buildx-create && docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-dev:latest -f ./.docker/dockerfiles/Dockerfile-dev --push .",
-    "docker-x-build-cb-dev-postgres": "npm run docker-x-buildx-create && docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-dev-postgres:latest -f ./.docker/dockerfiles/Dockerfile-dev-postgres --push .",
+    "docker-x-build-cb-prod": "npm run docker-x-buildx-create && docker buildx build --platform linux/amd64,linux/arm64 -t codebloxes/codeblox-prod:latest -f ./.docker/dockerfiles/Dockerfile --push .",
+    "docker-x-build-cb-dev": "npm run docker-x-buildx-create && docker buildx build --platform linux/amd64,linux/arm64 -t codebloxes/codeblox-dev:latest -f ./.docker/dockerfiles/Dockerfile-dev --push .",
+    "docker-x-build-cb-dev-postgres": "npm run docker-x-buildx-create && docker buildx build --platform linux/amd64,linux/arm64 -t codebloxes/codeblox-dev-postgres:latest -f ./.docker/dockerfiles/Dockerfile-dev-postgres --push .",
 
     "test:jest:frontend": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.frontend.config.js",
     "test:jest:backend": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.backend.config.js",
