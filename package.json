@@ -27,8 +27,13 @@
     "docker-x-build-prod": "docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-prod:latest -f ./.docker/dockerfiles/Dockerfile --push .",
     "docker-x-build-dev": "docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-dev:latest -f ./.docker/dockerfiles/Dockerfile-dev --push .",
     "docker-x-build-dev-postgres": "docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-dev-postgres:latest -f ./.docker/dockerfiles/Dockerfile-dev-postgres --push .",
+
     "docker-build-all": "npm run docker-x-buildx-create && concurrently \"npm run docker-x-build-prod\" \"npm run docker-x-build-dev\" \"npm run docker-x-build-dev-postgres\"",
-    
+
+    "docker-x-build-cb-prod": "npm run docker-x-buildx-create && docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-prod:latest -f ./.docker/dockerfiles/Dockerfile --push .",
+    "docker-x-build-cb-dev": "npm run docker-x-buildx-create && docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-dev:latest -f ./.docker/dockerfiles/Dockerfile-dev --push .",
+    "docker-x-build-cb-dev-postgres": "npm run docker-x-buildx-create && docker buildx build --platform linux/amd64,linux/arm64 -t adamtestbed/codeblox-dev-postgres:latest -f ./.docker/dockerfiles/Dockerfile-dev-postgres --push .",
+
     "test:jest:frontend": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.frontend.config.js",
     "test:jest:backend": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.backend.config.js",
     "test:chai": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.chai.config.js",
