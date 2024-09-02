@@ -6,8 +6,6 @@ option_settings:
   aws:elasticbeanstalk:container:docker:
     # Specify the dockerfile path. If your Dockerfile is in the root, this can be left empty.
     Dockerfile: .docker/dockerfiles/Dockerfile
-    WorkingDirectory: /usr/src/app
-
 
 #container_commands:
 #  01_build_image:
