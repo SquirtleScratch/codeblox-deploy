@@ -1,11 +1,9 @@
 # .ebextensions/00_build
 
-# .ebextensions/00_docker.config
-
-option_settings:
-  aws:elasticbeanstalk:container:docker:
-    # Specify the dockerfile path. If your Dockerfile is in the root, this can be left empty.
-    Dockerfile: .docker/dockerfiles/Dockerfile
+#option_settings:
+#  aws:elasticbeanstalk:container:docker:
+#    # Specify the dockerfile path. If your Dockerfile is in the root, this can be left empty.
+#    Dockerfile: .docker/dockerfiles/Dockerfile
 
 #container_commands:
 #  01_build_image:
