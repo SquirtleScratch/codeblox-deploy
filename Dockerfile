@@ -7,11 +7,11 @@ WORKDIR /usr/src/app
 
 # Place package*.json from root inside workdir
 
-COPY ../../package*.json ./
+COPY package*.json ./
 # Run NPM INSTALL in owrkdir
 RUN npm install
 
-COPY ../../. .
+COPY . .
 
 RUN npm run build
 
