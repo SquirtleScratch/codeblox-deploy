@@ -1,4 +1,4 @@
-# path:  .docker/Dockerfile
+# path:  Dockerfile
 
 FROM node:20
 
