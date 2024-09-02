@@ -1,12 +1,6 @@
 {
   "AWSEBDockerrunVersion": 1,
   "Image": {
-    "Name": "codebloxes/codeblox-prod:latest",
-    "Update": "true"
-  },
-  "Ports": [
-    {
-      "ContainerPort": "3000"
-    }
-  ]
+    "Name": "codebloxes/codeblox-prod:latest"
+  }
 }
