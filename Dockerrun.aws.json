@@ -1,7 +1,0 @@
-{
-  "ContainerDefinitions": [
-    {
-      "Dockerfile": ".docker/dockerfiles/Dockerfile"
-    }
-  ]
-}
