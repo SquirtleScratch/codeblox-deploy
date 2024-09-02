@@ -41,7 +41,8 @@
     "test:jest:backend": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.backend.config.js",
     "test:chai": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/jest --config ./.configs/for_tests/jest.chai.config.js",
     "test:playwright": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/playwright test --config=./.configs/for_tests/jest.playwright.config.js",
-    "test:cucumberjs": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/cucumber-js --require __tests__/cucumberjs/step_definitions __tests__/cucumberjs/features"
+    "test:cucumberjs": "NODE_ENV=test node --no-deprecation ./node_modules/.bin/cucumber-js --require __tests__/cucumberjs/step_definitions __tests__/cucumberjs/features",
+    "deploy-zip": "git archive -v -o codeblox.zip --format=zip HEAD"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
