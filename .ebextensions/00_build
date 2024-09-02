@@ -1,9 +1,9 @@
 # .ebextensions/00_build
-#container_commands:
-#  01_build_image:
-#    command: "docker build -t codebloxes/codeblox-prod:latest -f .docker/dockerfiles/Dockerfile ."
-#    leader_only: true
+container_commands:
+  01_build_image:
+    command: "docker build -t codebloxes/codeblox-prod:latest -f .docker/dockerfiles/Dockerfile ."
+    leader_only: true
 
-#  02_run_container:
-#    command: "docker run -d -p 80:3000 codebloxes/codeblox-prod:latest"
-#    leader_only: true
+  02_run_container:
+    command: "docker run -d -p 80:3000 codebloxes/codeblox-prod:latest"
+    leader_only: true
