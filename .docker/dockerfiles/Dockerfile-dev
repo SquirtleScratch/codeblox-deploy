@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y postgresql-client
 COPY ../../package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --include=dev
 
 # Install Playwright and download browsers
 RUN npx playwright install --with-deps
