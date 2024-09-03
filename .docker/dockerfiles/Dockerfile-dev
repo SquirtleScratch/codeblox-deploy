@@ -1,6 +1,6 @@
 # path:  .docker/Dockerfile-dev
 
-FROM node:20
+FROM node:20 as build
 
 # Set the working directory inside the container
 WORKDIR /usr/src/app
@@ -23,6 +23,12 @@ COPY ../../. .
 # Set environment variable for testing or development based on build argument
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
+
+FROM node:20 as production
+
+WORKDIR /usr/src/app
+
+COPY --from=build /usr/src/app /usr/src/app
 
 # Expose port 3000 to the host
 EXPOSE 3000
