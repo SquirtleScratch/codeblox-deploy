@@ -1,7 +1,7 @@
    echo "Processing deploy.sh"
 
     # Set the EB BUCKET (you can find this in S3 service within AWS)
-    EB_BUCKET=elasticbeanstalk-us-east-2-975200498948
+    EB_BUCKET="elasticbeanstalk-us-east-2-975200498948"
 
     # Set the default region for the AWS CLI
     aws configure set default.region us-east-2
