@@ -21,8 +21,8 @@
     # Use Linux's 'sed' command to replace '<VERSION>' in our Dockerrun file with the GitHub SHA key
     sed -i='' "s/<VERSION>/$GITHUB_SHA/" Dockerrun.aws.json
 
-    # Zip up our codebase, along with the modified Dockerrun file and our .ebextensions directory
-    zip -r codeblox.zip Dockerrun.aws.json .ebextensions
+    # Zip up the entire repository, along with the modified Dockerrun file and our .ebextensions directory
+    zip -r codeblox.zip . -x "*.git*" "*.github*" "*.DS_Store" "node_modules/*"
 
     # Upload the zipped file to our S3 bucket
     aws s3 cp codeblox.zip s3://$EB_BUCKET/codeblox.zip
