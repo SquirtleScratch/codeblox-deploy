@@ -36,11 +36,11 @@
   echo "GITHUB_SHA1: $GITHUB_SHA"
 
   # Create a new application version
-  aws elasticbeanstalk create-application-version --application-name tes5432 --version-label $GITHUB_SHA --source-bundle S3Bucket=$EB_BUCKET,S3Key=codeblox.zip
+  aws elasticbeanstalk create-application-version --application-name codeblox-staging-env --version-label $GITHUB_SHA --source-bundle S3Bucket=$EB_BUCKET,S3Key=codeblox.zip
 
   # Echo the current environment variables
   echo "EB_BUCKET2: $EB_BUCKET"
   echo "GITHUB_SHA2: $GITHUB_SHA"
 
   # Update the environment to use the new version number
-  aws elasticbeanstalk update-environment --environment-name tes5432-env --version-label $GITHUB_SHA
+  aws elasticbeanstalk update-environment --environment-name codeblox-staging-env-env --version-label $GITHUB_SHA
