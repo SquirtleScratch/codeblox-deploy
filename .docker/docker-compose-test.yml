@@ -13,6 +13,7 @@ services:
       - "3001:3000"
     volumes:
       - ../:/usr/src/app:cached  # Mount the application code for running tests
+      - /usr/src/app/node_modules
       - ../.configs/scripts/wait-for-it.sh:/usr/src/.configs/scripts/wait-for-it.sh  # Include the wait-for-it script
     command: >
       bash -c "
