@@ -1,0 +1,33 @@
+name: Codeblox  - DEV check for staging
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  unit-testing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run tests with Docker Compose
+        run: NODE_ENV=test docker compose -f .docker/docker-compose-test.yml -f .docker/docker-compose-postgres.test.yml up --abort-on-container-exit
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: unit-testing  # Ensure tests pass before deploying
+
+    if: github.event.pull_request.merged == true  # Only deploy if the PR is merged
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Staging
+        run: |
+          # Add your deployment script/commands here
+          echo "Deploying to staging environment..."
+

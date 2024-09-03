@@ -1,0 +1,17 @@
+name: codeblox-build-tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs: 
+  unit-testing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run tests with Docker Compose
+        run: NODE_ENV=test docker compose -f .docker/docker-compose-test.yml -f .docker/docker-compose-postgres.test.yml up --abort-on-container-exit
