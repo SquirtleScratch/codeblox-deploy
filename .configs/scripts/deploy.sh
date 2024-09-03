@@ -28,7 +28,7 @@
     aws s3 cp codeblox.zip s3://$EB_BUCKET/codeblox.zip
 
     # Create a new application version
-    aws elasticbeanstalk create-application-version --application-name test321 --version-label $GITHUB_SHA --source-bundle S3Bucket=$EB_BUCKET,S3Key=codeblox.zip
+    aws elasticbeanstalk create-application-version --application-name tes4321 --version-label $GITHUB_SHA --source-bundle S3Bucket=$EB_BUCKET,S3Key=codeblox.zip
 
     # Update the environment to use the new version number
-    aws elasticbeanstalk update-environment --environment-name test321-envt --version-label $GITHUB_SHA
+    aws elasticbeanstalk update-environment --environment-name test4321-env --version-label $GITHUB_SHA
