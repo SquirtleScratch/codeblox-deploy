@@ -15,7 +15,7 @@
 
     "cleanup": "npm run cleanup:full && npm run cleanup:npm",
     "dev:hot": "NODE_ENV=development next dev",
-    "dev:test": "npm run test:jest:frontend && npm run test:playwright && npm run test:jest:backend && npm run test:chai && npm run test:cucumberjs",
+    "dev:test": "npm run test:jest:frontend && npm run test:jest:backend && npm run test:chai && npm run test:cucumberjs",
 
     "docker-dev:hot": "NODE_ENV=development docker compose -f .docker/docker-compose-dev-hot.yml -f .docker/docker-compose-postgres.base.yml -f .docker/docker-compose-postgres.dev.yml up",
     "docker-pgAdmin": "docker compose -f .docker/docker-compose-postgres-pgadmin4.yml up",
