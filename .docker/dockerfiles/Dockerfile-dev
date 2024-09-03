@@ -28,6 +28,8 @@ FROM node:20 as production
 
 WORKDIR /usr/src/app
 
+RUN apt-get update && apt-get install -y postgresql-client
+
 COPY --from=build /usr/src/app /usr/src/app
 
 # Expose port 3000 to the host
