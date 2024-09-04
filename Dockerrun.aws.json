@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "975200498948.dkr.ecr.us-east-2.amazonaws.com/codeblox:705021fcad51ecbdcacfd80c25d4cbc45df49db3",
+    "Name": "975200498948.dkr.ecr.us-east-2.amazonaws.com/codeblox:<VERSION>",
     "Update": "true"
   },
   "Ports": [
