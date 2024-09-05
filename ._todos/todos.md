@@ -15,3 +15,6 @@ A lit of things to fix:
   const path = require('path');
 
 module.exports = path.dirname(process.mainModule.filename);
+
+
+eb logs -all --instance i-0e5333ac3725d6f72 codeblox-production-env

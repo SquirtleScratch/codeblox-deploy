@@ -26,7 +26,8 @@
   sed -i='' "s/<VERSION>/$GITHUB_SHA/" Dockerrun.aws.json
 
   # Zip up the entire repository, along with the modified Dockerrun file and our .ebextensions directory
-  zip -r codeblox.zip . -x "*.git*" "*.github*" "*.DS_Store" "node_modules/*"
+  # zip -r codeblox.zip . -x "*.git*" "*.github*" "*.DS_Store" "node_modules/*"
+  zip -r mm-prod-deploy.zip Dockerrun.aws.json .ebextensions
 
   # Upload the zipped file to our S3 bucket
   aws s3 cp codeblox.zip s3://$EB_BUCKET/codeblox.zip
