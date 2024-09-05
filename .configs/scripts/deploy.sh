@@ -14,7 +14,7 @@
   eval $(aws ecr get-login --no-include-email --region us-east-2)
 
   # Build the Docker image based on our production Dockerfile
-  docker build -t codebloxes/codeblox-prod -f Dockerfile .
+  docker build -t codebloxes/codeblox-prod -f .docker/dockerfiles/Dockerfile .
 
   # Tag the image with the GitHub SHA
   docker tag codebloxes/codeblox-prod:latest 975200498948.dkr.ecr.us-east-2.amazonaws.com/codeblox:$GITHUB_SHA
