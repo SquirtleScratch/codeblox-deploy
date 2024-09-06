@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  unit-testing:
+  unit-testing-production:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -14,7 +14,7 @@ jobs:
       # Add your unit testing steps here
 
   deploy:
-    needs: unit-testing
+    needs: unit-testing-production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -33,7 +33,7 @@ jobs:
         run: python3 -m pip install --user awscli
 
       - name: Deploy to AWS
-        run: sh ./.configs/scripts/deploy.sh
+        run: sh ./.configs/scripts/deploy-production.sh
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
