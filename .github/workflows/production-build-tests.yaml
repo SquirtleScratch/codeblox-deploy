@@ -1,0 +1,50 @@
+name: codeblox-build-tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs: 
+  unit-testing-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Create .env.test (Node Environment)
+        run: |
+          echo "POSTGRES_HOST_ALIAS=${{ secrets.POSTGRES_HOST_ALIAS }}" >> .configs/.env.test
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .configs/.env.test
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .configs/.env.test
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .configs/.env.test
+          echo "ORGANIZATION=${{ secrets.ORGANIZATION }}" >> .configs/.env.test
+
+      - name: Create .env file (Docker Compose)
+        run: |
+          echo "POSTGRES_HOST_ALIAS=${{ secrets.POSTGRES_HOST_ALIAS }}" >> .docker/.env
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .docker/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .docker/.env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .docker/.env
+          echo "ORGANIZATION=${{ secrets.ORGANIZATION }}" >> .docker/.env
+
+      # - name: Install dependencies
+      #   run: npm install --include=dev
+
+      # - name: Install Playwright browsers
+      #   run: npx playwright install --with-deps
+
+      # - name: Log in to Docker Hub
+      #   uses: docker/login-action@v2
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Run tests with Docker Compose
+        run: NODE_ENV=test docker compose -f .docker/docker-compose-test.yml -f .docker/docker-compose-postgres.test.yml up --abort-on-container-exit

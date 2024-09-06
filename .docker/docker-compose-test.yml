@@ -1,0 +1,46 @@
+# path:  .docker/docker-compose-test.yml
+
+services:
+
+  test:
+    environment:
+      - NODE_ENV=test
+    env_file:
+      - ../.configs/.env.test
+    image: ${ORGANIZATION}/codeblox-dev
+    container_name: codeblox-nextjs-test
+    ports:
+      - "3001:3000"
+    volumes:
+      - ../:/usr/src/app:cached  # Mount the application code for running tests
+      - /usr/src/app/node_modules
+      - ../.configs/scripts/wait-for-it.sh:/usr/src/.configs/scripts/wait-for-it.sh  # Include the wait-for-it script
+    command: >
+      bash -c "
+      echo 'All Environment Variables:';
+      printenv;
+      /usr/src/.configs/scripts/wait-for-it.sh ${POSTGRES_HOST_ALIAS}:5432 --timeout=30 --strict -- &&
+      until pg_isready -h ${POSTGRES_HOST_ALIAS} -p 5432 -U ${POSTGRES_USER}; do
+        echo 'Waiting for PostgreSQL to be ready...';
+        sleep 2;
+      done;
+      echo 'Starting tests...';
+      PGPASSWORD=${POSTGRES_PASSWORD} psql -h ${POSTGRES_HOST_ALIAS} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c \"\\\\l\" &&
+      npm run dev:test &&
+      echo 'Tests finished.'"
+    depends_on:
+      - postgres-db-test
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]  # Optional healthcheck to ensure the web service is up
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - test-network
+
+volumes:
+  test-db-volume:
+
+networks:
+  test-network:
+    driver: bridge 

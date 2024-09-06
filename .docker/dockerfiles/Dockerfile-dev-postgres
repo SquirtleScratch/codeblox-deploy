@@ -1,0 +1,7 @@
+# path:  .docker/Dockerfile-dev-postgres
+
+# Start FROM a baseline image of postgres v12.8
+FROM postgres:16.4
+
+# Copy the SQL script from the local directory to the appropriate location in the container
+COPY .docker/sql_pg_dump/codeblox-dev.sql /docker-entrypoint-initdb.d/

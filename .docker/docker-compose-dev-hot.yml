@@ -1,0 +1,31 @@
+# .docker/docker-compose-dev-hot.yml
+
+services:
+  web:
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=1000
+    env_file:
+      - ../.configs/.env.${NODE_ENV}
+    image: ${ORGANIZATION}/codeblox-dev
+    container_name: codeblox-nextjs-devhot
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../:/usr/src/app:cached  # Mount the application code for hot reloading
+    command: bash -c "npm install && npm run dev:hot"  # Install dependencies and start the dev server
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]  # Healthcheck
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - dev-network
+
+volumes:
+  test-db-volume:
+
+networks:
+  dev-network:
+    driver: bridge 

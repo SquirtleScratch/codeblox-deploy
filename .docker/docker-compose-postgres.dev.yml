@@ -1,0 +1,27 @@
+# path:  .docker/docker-compose-postgres.dev.yml
+
+services:
+  postgres-db:
+    environment:
+      - NODE_ENV=development
+      - POSTGRES_HOST_ALIAS=${POSTGRES_HOST_ALIAS}
+    env_file:
+      - ../.configs/.env.${NODE_ENV}
+    image: ${ORGANIZATION}/codeblox-dev-postgres
+    volumes:
+      - test-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      dev-network:  # Join the dev-network
+        aliases:
+          - ${POSTGRES_HOST_ALIAS}
+
+volumes:
+  test-db-volume:
+
+networks:
+  dev-network:

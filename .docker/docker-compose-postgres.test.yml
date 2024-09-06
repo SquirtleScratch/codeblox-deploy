@@ -1,0 +1,22 @@
+# path:  .docker/docker-compose-postgres.test.yml
+
+services:
+
+  postgres-db-test:
+    environment:
+      - NODE_ENV=test
+    env_file:
+      - ../.configs/.env.${NODE_ENV}
+    image: ${ORGANIZATION}/codeblox-dev-postgres
+    volumes:
+      - test-db-volume:/var/lib/postgresql/data
+    networks:
+      test-network:
+        aliases:
+          - ${POSTGRES_HOST_ALIAS}
+
+volumes:
+  test-db-volume:
+
+networks:
+  test-network:

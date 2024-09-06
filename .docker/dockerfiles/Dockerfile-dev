@@ -1,0 +1,38 @@
+# path:  .docker/Dockerfile-dev
+
+FROM node:20 as build
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Install PostgreSQL client tools
+RUN apt-get update && apt-get install -y postgresql-client
+
+# Copy package.json and package-lock.json
+COPY ../../package*.json ./
+
+# Install dependencies
+RUN npm install --include=dev
+
+# Copy the rest of the application code
+COPY ../../. .
+
+# Set environment variable for testing or development based on build argument
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
+
+FROM node:20 as production
+
+WORKDIR /usr/src/app
+
+COPY --from=build /usr/src/app /usr/src/app
+
+RUN apt-get update && apt-get install -y postgresql-client
+
+ENV NODE_ENV=production
+
+# Expose port 3000 to the host
+EXPOSE 3000
+
+# Start the Codeblox Next.js application with hot reloading
+CMD ["npm", "run", "dev:hot"]
