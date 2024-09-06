@@ -1,10 +1,11 @@
 name: deploy-staging
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - dev
-
+      
 jobs:
   unit-testing-staging:
     runs-on: ubuntu-latest
